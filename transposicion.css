@@ -26,8 +26,13 @@ label {
     margin-top: 10px;
 }
 
-input[type="text"],
-input[type="number"],
+.input{
+    border: none;
+    width: 90%;
+    margin: 10px;
+    padding: 3%;
+    border-radius: 20px;
+}
 
 button {
     width: 90%;
