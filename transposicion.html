@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Escítala Cifrado y Descifrado</title>
+   <link rel="stylesheet" href="transposicion.css">
+</head>
+<body>
+    <h1>Transposicion Cifrado y Descifrado</h1>
+
+    <form>
+        <label>Introduce un Mensaje :)</label>
+        <input type="text" id="plaintext" class="in" required>
+        <br>
+        <label>Pon tu numero de Columnas</label>
+        <input type="number" id="columns" class="in" required>
+        <br>
+        <button type="button" onclick="Encriptar()">Cifrar</button>
+        <button type="button" onclick="Desencriptar()">Descifrar</button>
+
+        <h2>Resultado:</h2>
+        <p id="result"></p>
+    </form>
+
+    <script>
+        function Encriptar() {
+            const plaintext = document.getElementById("plaintext").value;
+            const columns = parseInt(document.getElementById("columns").value);
+
+            if (plaintext === "" || isNaN(columns) || columns < 2) {
+                alert("Por favor, ingresa un texto y un número válido de columnas.");
+                return;
+            }
+
+            const ciphertext = EncriptarFuncion(plaintext, columns);
+            document.getElementById("result").textContent = ciphertext;
+        }
+
+        function Desencriptar() {
+            const ciphertext = document.getElementById("plaintext").value;
+            const columns = parseInt(document.getElementById("columns").value);
+
+            if (ciphertext === "" || isNaN(columns) || columns < 2) {
+                alert("Por favor, ingresa un texto cifrado y un número válido de columnas.");
+                return;
+            }
+
+            const plaintext = DesencriptarFuncion(ciphertext, columns);
+            document.getElementById("result").textContent = plaintext;
+        }
+
+        function EncriptarFuncion(text, columns) {
+            const numRows = Math.ceil(text.length / columns);
+            let result = "";
+
+            for (let col = 0; col < columns; col++) {
+                for (let row = 0; row < numRows; row++) {
+                    const index = row * columns + col;
+                    if (index < text.length) {
+                        result += text[index];
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        function DesencriptarFuncion(text, columns) {
+            const numRows = Math.ceil(text.length / columns);
+            let result = "";
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < columns; col++) {
+                    const index = col * numRows + row;
+                    if (index < text.length) {
+                        result += text[index];
+                    }
+                }
+            }
+
+            return result;
+        }
+    </script>
+</body>
+</html>
